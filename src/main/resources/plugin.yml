@@ -1,0 +1,19 @@
+name: Stopinator
+version: '1.0.0'
+main: au.com.addstar.ccm.stopinator.Stopinator
+api-version: '1.20'
+description: Kicks all players then shuts down the server when /stop is used
+
+commands:
+  stop:
+    description: Stops the server after kicking all players
+    aliases: [mwstop, shutdown]
+    permission: stopinator.use
+  restart:
+    description: Restarts the server after kicking all players
+    permission: stopinator.use
+
+permissions:
+  stopinator.use:
+    description: Allows stopping or restarting the server (kicks all players then shuts down or restarts)
+    default: op
