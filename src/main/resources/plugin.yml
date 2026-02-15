@@ -1,5 +1,5 @@
 name: Stopinator
-version: '1.0.0'
+version: '${version}'
 main: au.com.addstar.ccm.stopinator.Stopinator
 api-version: '1.20'
 description: Kicks all players then shuts down the server when /stop is used

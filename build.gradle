@@ -4,7 +4,12 @@ plugins {
 }
 
 group = 'au.com.addstar.ccm'
-version = '1.0.0'
+
+def baseVersion = '1.0'
+def buildNumber = System.getenv('BUILD_NUMBER')
+version = (buildNumber != null && !buildNumber.isEmpty())
+    ? "${baseVersion}.${buildNumber}"
+    : "${baseVersion}-SNAPSHOT"
 
 repositories {
     mavenCentral()
