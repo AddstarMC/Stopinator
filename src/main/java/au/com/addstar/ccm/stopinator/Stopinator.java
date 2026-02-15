@@ -15,6 +15,9 @@ public final class Stopinator extends JavaPlugin {
     private static final Component KICK_MESSAGE =
             MiniMessage.miniMessage().deserialize("<red>Server is restarting</red>");
 
+    /** Ticks to wait between kicking each player (1 = one kick per tick). Increase to spread kicks. */
+    private static final int TICKS_BETWEEN_KICKS = 1;
+
     /** Ticks to wait after the last kick before calling shutdown/restart. */
     private static final int TICKS_AFTER_LAST_KICK_BEFORE_SHUTDOWN = 5;
 
@@ -54,12 +57,12 @@ public final class Stopinator extends JavaPlugin {
 
         for (int i = 0; i < players.size(); i++) {
             final Player player = players.get(i);
-            Bukkit.getScheduler().runTaskLater(this, () -> player.kick(KICK_MESSAGE), i);
+            Bukkit.getScheduler().runTaskLater(this, () -> player.kick(KICK_MESSAGE), (long) i * TICKS_BETWEEN_KICKS);
         }
         Bukkit.getScheduler().runTaskLater(
                 this,
                 afterKicks,
-                players.size() + TICKS_AFTER_LAST_KICK_BEFORE_SHUTDOWN);
+                (long) players.size() * TICKS_BETWEEN_KICKS + TICKS_AFTER_LAST_KICK_BEFORE_SHUTDOWN);
     }
 
     @Override
