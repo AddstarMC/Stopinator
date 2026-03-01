@@ -27,8 +27,10 @@ public final class ConsoleStopListener implements Listener {
             return;
         }
         String first = raw.split("\\s+")[0].toLowerCase();
-        boolean isRestart = first.equals("restart");
-        boolean isStop = first.equals("stop") || first.equals("shutdown") || first.equals("mwstop");
+        // Support namespaced commands (e.g. stopinator:stop, stopinator:restart)
+        String base = first.contains(":") ? first.substring(first.lastIndexOf(':') + 1) : first;
+        boolean isRestart = base.equals("restart");
+        boolean isStop = base.equals("stop") || base.equals("shutdown") || base.equals("mwstop");
         if (!isStop && !isRestart) {
             return;
         }

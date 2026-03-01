@@ -22,8 +22,10 @@ public final class StopCommand implements CommandExecutor {
             @NotNull Command command,
             @NotNull String label,
             @NotNull String[] args) {
-        boolean isRestart = label.equalsIgnoreCase("restart");
-        if (!label.equalsIgnoreCase("stop") && !isRestart) {
+        // Support namespaced labels (e.g. "stopinator:stop" / "stopinator:restart")
+        String baseLabel = label.contains(":") ? label.substring(label.lastIndexOf(':') + 1) : label;
+        boolean isRestart = baseLabel.equalsIgnoreCase("restart");
+        if (!baseLabel.equalsIgnoreCase("stop") && !isRestart) {
             return false;
         }
         plugin.initiateShutdown(isRestart);
